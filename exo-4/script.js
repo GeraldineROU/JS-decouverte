@@ -4,12 +4,20 @@ console.log('exo-4');
 
 var secretMessage = ["Learning", "isn't", "about", "what", "you", "get", "easily", "the", "first", "time,", "it's", "about", "what", "you", "can", "figure", "out.", "-2015,", "Chris", "Pine,", "Learn", "JavaScript"];
 
-secretMessage = secretMessage.pop;
+secretMessage.pop;
+// console.log(secretMessage);
 
-secretMessage = secretMessage.push("to");
+secretMessage.push('to');
 
-secretMessage = secretMessage.push("program");
+secretMessage.push("program");
 
-secretMessage.forEach(function (item, index, array) {
-    console.log(item, index);
-})
+secretMessage.splice(6,1,'right');
+
+secretMessage.shift();
+
+secretMessage.splice(0, 0, 'Programming');
+
+secretMessage.splice(5, 5, 'know');
+
+console.log(secretMessage.join(' '));
+
