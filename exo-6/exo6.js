@@ -33,17 +33,17 @@ let team = {
         },
         {
             firstName: 'Biba',
-            lastName: 'Bobberek',
+            lastName: 'Ubobberek',
             age: 10,
         },
         {
-            firstName: 'Bibili',
-            lastName: 'Bobberek',
+            firstName: 'Billy',
+            lastName: "O'Bobby",
             age: 8,
         },
         {
             firstName: 'Babusha',
-            lastName: 'Bobberski',
+            lastName: 'Kanapka',
             age: 12,
         },
         {
@@ -89,7 +89,7 @@ team.addGame = function (opponents, teamPoints, opponentPoints) {
     this.games.push(newGame);
 }
 
-team.addPlayer('Bubby', 'Bobberman', 7);
+team.addPlayer('Bubby', 'Metka', 7);
 team.addGame('Fried Fishes', 102, 21);
 team.addPlayer('BobberBaby', 'Bobberin', 1);
 team.addPlayer('Bobby', 'MacBobber', 9);
@@ -100,10 +100,70 @@ team.addGame('Chinchillas of Chaos', 51, 2);
 console.log(team.players);
 console.log(team.games);
 
-let totalOfBobbersTeamPoints = 0;
-team.games.forEach(game => {totalOfBobbersTeamPoints = totalOfBobbersTeamPoints + game.opponentPoints;})
-console.log(totalOfBobbersTeamPoints);
+///////////////////////////étape 10//////////////////////////////////////////////////////
 
-let averageOfBobbersTeamPoints = 0;
-averageOfBobbersTeamPoints = totalOfBobbersTeamPoints / (team.games.length-1);
-console.log(averageOfBobbersTeamPoints);
+let totalOfBobbersTeamPoints = 0;
+let teamPoints = team.games.teamPoints;
+
+///// avec boucle for of (plus adapté à un tableau ou tout élément itérable) ////////////////
+
+// for (const game of team.games.values()) {
+//     totalOfBobbersTeamPoints = totalOfBobbersTeamPoints + game.teamPoints;
+// }
+
+//// avec boucle for in///////////
+//////////Parcourir les propriétés énumérables d'un objet ou les clés d'un tableau.
+
+// for (let index in team.games ) {
+//     totalOfBobbersTeamPoints = totalOfBobbersTeamPoints + team.games[index].teamPoints;
+// }
+
+////// avec méthode .forEach ///////////
+
+team.games.forEach((game) => totalOfBobbersTeamPoints = totalOfBobbersTeamPoints + game.teamPoints);
+
+console.log("Voici le total de points de la Bobbers Team : " + totalOfBobbersTeamPoints);
+
+///////////étape 11/////////////////////////////////////////////////////////////////////////////////////////
+
+let totalOfOpponentsPoints = 0;
+
+team.games.forEach((game) => totalOfOpponentsPoints = totalOfOpponentsPoints + game.opponentPoints);
+// console.log(totalOfOpponentsPoints);
+
+let averageOfOpponentsPoints = totalOfOpponentsPoints / team.games.length;
+
+console.log("Voici la moyenne des points obtenus par les équipes adverses : " + averageOfOpponentsPoints);
+
+/////////////////étape 12//////////////////////////////////////////////////
+
+team.whoIsTheOldestPlayer = function () {
+    let oldestAge = 0;
+    let olderPlayerFirstName = "";
+    let olderPlayerLastName = "";
+    team.players.forEach((player) => {
+        if (player.age > oldestAge) {
+            oldestAge = player.age;
+        }
+    });
+    console.log ("Le joueur le plus vieux a " + oldestAge + " ans.");
+
+    team.players.forEach((player) => {
+        if (player.age === oldestAge) {
+            olderPlayerFirstName = player.firstName;
+            olderPlayerLastName = player.lastName;
+        }
+    })
+
+    console.log ("C'est le joueur qui s'appelle : " + olderPlayerFirstName + " " + olderPlayerLastName +".")
+}
+
+team.whoIsTheOldestPlayer();
+
+///////////// étape 13 ////////////////////////////////////////////////////
+
+let allPlayersLastNames = [];
+
+team.players.forEach((player) => allPlayersLastNames.push(player.lastName));
+allPlayersLastNames.sort();
+console.log(allPlayersLastNames);
