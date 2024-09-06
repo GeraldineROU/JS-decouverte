@@ -45,8 +45,8 @@ displayAllItemsInConsole();
 // Get container DOM element
 let container = document.getElementById("container");
 
-function displayAllItems () {
-    for (let item of jsonDatas) {
+function displayItemsInDom (array) {
+    for (let item of array) {
 
         // Create item DOM element from jsonData
         // explication : prendre la description JS de l'élément et le transformer en element HTML
@@ -71,7 +71,7 @@ function displayAllItems () {
     }
 }
 
-// displayAllItems();
+// displayItemsInDom(jsonDatas);
 
 ///////// fonction pour créer un élément DOM en reprenant les entrées de jsonDatas
 
@@ -85,41 +85,40 @@ function createDomElement (dataText) {
 ////////////////Au clic sur le bouton "rechercher", afficher les articles du type entré dans le champs texte /////
 
 ////// récupérer le bouton dans le dom
-let button = document.getElementById("button")
+let button = document.getElementById("button");
 
+////// au clic du bouton on récupère le texte saisi dans le champs texte
+let typedType = "";
+button.addEventListener("click", function () {
+    typedType = document.getElementById("rechercheParType").value;
+    window.alert("button clicked !");
+    console.log(" recherche reçue : " + typedType);
+    //// création d'un nouveau tableau pour récupérer les items à afficher
+
+    let typeArray = [];
 
 ////////faire une fonction A qui permet d'afficher les articles associés à un type
 
-function displayItemsByType(typeSearched) {
-        for (let item of jsonDatas) {
-            if (item.translatedType === typeSearched) {
-                let itemNameDomElement = createDomElement("Nom : " + item.name);
-                let itemTypeDomElement = createDomElement("Type : " + item.translatedType);
-                let itemDescriptionDomElement = createDomElement("Description : " + item.description);
-                let itemPriceDomElement = createDomElement("Prix : " + item.price);
-                let itemQuantityDomElement = createDomElement("Quantité : " + item.quantity);
+    console.log('afficher les items par type recherché');
 
-                container.appendChild(itemNameDomElement);
-                container.appendChild(itemTypeDomElement);
-                container.appendChild(itemDescriptionDomElement);
-                container.appendChild(itemPriceDomElement);
-                container.appendChild(itemQuantityDomElement);
-
-                let separator = document.createElement("hr");
-                container.appendChild(separator);
-            }
+    jsonDatas.forEach((item)=> {
+        if (item.translatedType === typedType) {
+            typeArray.push(item);
+            console.log(item);
         }
-}
-
-////// au clic du bouton on récupère le texte saisi dans le champs texte
-button.addEventListener("click", function () {
-    let typedType = document.getElementById("rechercheParType").value;
-    // window.alert(typedType);
-    displayItemsByType(typedType);
+    });
+    displayItemsInDom(typeArray);
 });
 
 
-/////appeler la fonction A avec le retour de la fonction B en paramètres
+
+
+
+// console.log(typeArray);
+
+////appeler la fonction d'affichage avec le noueau tableau créé
+
+
 
 
 
