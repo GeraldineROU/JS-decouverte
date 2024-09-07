@@ -71,7 +71,12 @@ function displayItemsInDom (array) {
     }
 }
 
-// displayItemsInDom(jsonDatas);
+let buttonForAllItem = document.getElementById("buttonForAllItems");
+buttonForAllItem.addEventListener("click", function () {
+    container.replaceChildren();
+    displayItemsInDom(jsonDatas);
+});
+
 
 ///////// fonction pour créer un élément DOM en reprenant les entrées de jsonDatas
 
@@ -88,16 +93,15 @@ function createDomElement (dataText) {
 let button = document.getElementById("button");
 
 ////// au clic du bouton on récupère le texte saisi dans le champs texte
+////////faire une fonction A qui permet d'afficher les articles associés à un type
 let typedType = "";
 button.addEventListener("click", function () {
     typedType = document.getElementById("rechercheParType").value;
-    window.alert("button clicked !");
+    // window.alert("button clicked !");
     console.log(" recherche reçue : " + typedType);
     //// création d'un nouveau tableau pour récupérer les items à afficher
 
     let typeArray = [];
-
-////////faire une fonction A qui permet d'afficher les articles associés à un type
 
     console.log('afficher les items par type recherché');
 
@@ -107,16 +111,12 @@ button.addEventListener("click", function () {
             console.log(item);
         }
     });
+    container.replaceChildren();
     displayItemsInDom(typeArray);
 });
 
+////////// Ajouter une checkbox pour afficher ou non les articles en rupture de stock
 
-
-
-
-// console.log(typeArray);
-
-////appeler la fonction d'affichage avec le noueau tableau créé
 
 
 
