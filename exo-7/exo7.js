@@ -40,45 +40,12 @@ displayAllItemsInConsole();
 
 ///////// Créer l'affichage de tous les article dans la page html //////////////////////////////////
 
-// Main code
 
-// Get container DOM element
 let container = document.getElementById("container");
-
-function displayItemsInDom (array) {
-    for (let item of array) {
-
-        // Create item DOM element from jsonData
-        // explication : prendre la description JS de l'élément et le transformer en element HTML
-
-        let itemNameDomElement = createDomElement("Nom : " + item.name);
-        let itemTypeDomElement = createDomElement("Type : " + item.translatedType);
-        let itemDescriptionDomElement = createDomElement("Description : " + item.description);
-        let itemPriceDomElement = createDomElement("Prix : " + item.price);
-        let itemQuantityDomElement = createDomElement("Quantité : " + item.quantity);
-
-        // append l'élement créé à ton container
-
-        container.appendChild(itemNameDomElement);
-        container.appendChild(itemTypeDomElement);
-        container.appendChild(itemDescriptionDomElement);
-        container.appendChild(itemPriceDomElement);
-        container.appendChild(itemQuantityDomElement);
-
-        let separator = document.createElement("hr");
-        container.appendChild(separator);
-
-    }
-}
-
 let buttonForAllItem = document.getElementById("buttonForAllItems");
-buttonForAllItem.addEventListener("click", function () {
-    container.replaceChildren();
-    displayItemsInDom(jsonDatas);
-});
+let button = document.getElementById("button");
+let checkBox = document.getElementById("rupture");
 
-
-///////// fonction pour créer un élément DOM en reprenant les entrées de jsonDatas
 
 function createDomElement (dataText) {
     let element = document.createElement("p");
@@ -86,20 +53,34 @@ function createDomElement (dataText) {
     return element;
 }
 
+function displayItemsInDom (array) {
+    let isAvailable = checkBox.checked;
+    for (let item of array) {
 
-////////////////Au clic sur le bouton "rechercher", afficher les articles du type entré dans le champs texte /////
+        let itemNameDomElement = createDomElement("Nom : " + item.name);
+        let itemTypeDomElement = createDomElement("Type : " + item.translatedType);
+        let itemDescriptionDomElement = createDomElement("Description : " + item.description);
+        let itemPriceDomElement = createDomElement("Prix : " + item.price);
+        let itemQuantityDomElement = createDomElement("Quantité : " + item.quantity);
 
-////// récupérer le bouton dans le dom
-let button = document.getElementById("button");
+        if (!isAvailable || (isAvailable && item.quantity < 1)) {
+            container.appendChild(itemNameDomElement);
+            container.appendChild(itemTypeDomElement);
+            container.appendChild(itemDescriptionDomElement);
+            container.appendChild(itemPriceDomElement);
+            container.appendChild(itemQuantityDomElement);
 
-////// au clic du bouton on récupère le texte saisi dans le champs texte
-////////faire une fonction A qui permet d'afficher les articles associés à un type
-let typedType = "";
-button.addEventListener("click", function () {
-    typedType = document.getElementById("rechercheParType").value;
+            let separator = document.createElement("hr");
+            container.appendChild(separator);
+        }
+    }
+}
+
+function displayItemsByType () {
+    let typedType = document.getElementById("rechercheParType").value;
+
     // window.alert("button clicked !");
     console.log(" recherche reçue : " + typedType);
-    //// création d'un nouveau tableau pour récupérer les items à afficher
 
     let typeArray = [];
 
@@ -113,9 +94,30 @@ button.addEventListener("click", function () {
     });
     container.replaceChildren();
     displayItemsInDom(typeArray);
+}
+
+function displayUnvailableItems (array) {
+    let arrayOfUnvalaibleItems = [];
+    array.forEach((item) => {
+        if (item.quantity <1) {
+            arrayOfUnvalaibleItems.push(item);
+        }
+    })
+    container.replaceChildren();
+    displayItemsInDom(arrayOfUnvalaibleItems);
+}
+
+
+
+
+buttonForAllItem.addEventListener("click", function () {
+    container.replaceChildren();
+    displayItemsInDom(jsonDatas);
 });
 
-////////// Ajouter une checkbox pour afficher ou non les articles en rupture de stock
+
+button.addEventListener("click", displayItemsByType);
+
 
 
 
