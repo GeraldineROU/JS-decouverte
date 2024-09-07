@@ -54,7 +54,7 @@ function createDomElement (dataText) {
 }
 
 function displayItemsInDom (array) {
-    let isAvailable = checkBox.checked;
+    let isUnavailable = checkBox.checked;
     for (let item of array) {
 
         let itemNameDomElement = createDomElement("Nom : " + item.name);
@@ -63,7 +63,7 @@ function displayItemsInDom (array) {
         let itemPriceDomElement = createDomElement("Prix : " + item.price);
         let itemQuantityDomElement = createDomElement("Quantité : " + item.quantity);
 
-        if (!isAvailable || (isAvailable && item.quantity < 1)) {
+        if ((!isUnavailable && item.quantity > 0) || isUnavailable) {
             container.appendChild(itemNameDomElement);
             container.appendChild(itemTypeDomElement);
             container.appendChild(itemDescriptionDomElement);
@@ -95,20 +95,6 @@ function displayItemsByType () {
     container.replaceChildren();
     displayItemsInDom(typeArray);
 }
-
-function displayUnvailableItems (array) {
-    let arrayOfUnvalaibleItems = [];
-    array.forEach((item) => {
-        if (item.quantity <1) {
-            arrayOfUnvalaibleItems.push(item);
-        }
-    })
-    container.replaceChildren();
-    displayItemsInDom(arrayOfUnvalaibleItems);
-}
-
-
-
 
 buttonForAllItem.addEventListener("click", function () {
     container.replaceChildren();

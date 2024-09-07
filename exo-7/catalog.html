@@ -18,9 +18,29 @@
     <input type="button" value="Rechercher" id="button">
 </form>
 
+<form>
+    <fieldset>
+        <legend>Trier les articles par :</legend>
+        <div>
+            <input type="radio" id="byName" name="sortBy" value="sortByName">
+            <label for="byName">Nom</label>
+            <input type="radio" id="byPrice" name="sortBy" value="sortByPrice">
+            <label for="byPrice">Prix</label>
+        </div>
+        <legend>Par ordre :</legend>
+        <div>
+            <input type="radio" id="ascending" name="order" value="ascendingOrder">
+            <label for="ascending">Croissant</label>
+            <input type="radio" id="descending" name="order" value="descendingOrder">
+            <label for="descending">Décroissant</label>
+        </div>
+
+    </fieldset>
+</form>
+
 <form id="voirArticlesEnRupture">
     <input type="checkbox" name="rupture" id="rupture">
-    <label for="rupture">Afficher les articles en rupture de stock</label>
+    <label for="rupture">Afficher aussi les articles en rupture de stock</label>
 </form>
 
 
