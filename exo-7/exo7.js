@@ -45,6 +45,10 @@ let container = document.getElementById("container");
 let buttonForAllItem = document.getElementById("buttonForAllItems");
 let button = document.getElementById("button");
 let checkBox = document.getElementById("rupture");
+let byNameRadio = document.getElementById("byName");
+let byPriceRadio = document.getElementById("byPrice");
+let ascendingOrderRadio = document.getElementById("ascending");
+let descendingOrderRadio = document.getElementById("descending");
 
 
 function createDomElement (dataText) {
@@ -76,8 +80,32 @@ function displayItemsInDom (array) {
     }
 }
 
+function displayItemsByNameAsc (array) {
+    array.sort((a, b) => a.name.localeCompare(b.name));
+    displayItemsInDom(array);
+}
+
+function displayItemsByNameDesc (array) {
+    array.sort((b, a) => a.name.localeCompare(b.name));
+    displayItemsInDom(array);
+}
+
+function displayItemsByPriceAsc (array) {
+    array.sort((a, b) => a.price - b.price);
+    displayItemsInDom(array);
+}
+
+function displayItemsByPriceDesc (array) {
+    array.sort((a, b) => b.price - a.price);
+    displayItemsInDom(array);
+}
+
 function displayItemsByType () {
     let typedType = document.getElementById("rechercheParType").value;
+    let isByName = byNameRadio.checked;
+    let isByPrice = byPriceRadio.checked;
+    let isAscending = ascendingOrderRadio.checked;
+    let isDescending = descendingOrderRadio.checked;
 
     // window.alert("button clicked !");
     console.log(" recherche reçue : " + typedType);
@@ -93,12 +121,38 @@ function displayItemsByType () {
         }
     });
     container.replaceChildren();
-    displayItemsInDom(typeArray);
+    if (isByName && isAscending) {
+        displayItemsByNameAsc(typeArray);
+    }
+    if (isByName && isDescending) {
+        displayItemsByNameDesc(typeArray);
+    }
+    if (isByPrice && isAscending) {
+        displayItemsByPriceAsc(typeArray);
+    }
+    if (isByPrice && isDescending) {
+        displayItemsByPriceDesc(typeArray);
+    }
 }
 
 buttonForAllItem.addEventListener("click", function () {
     container.replaceChildren();
-    displayItemsInDom(jsonDatas);
+    let isByName = byNameRadio.checked;
+    let isByPrice = byPriceRadio.checked;
+    let isAscending = ascendingOrderRadio.checked;
+    let isDescending = descendingOrderRadio.checked;
+    if (isByName && isAscending) {
+        displayItemsByNameAsc(jsonDatas);
+    }
+    if (isByName && isDescending) {
+        displayItemsByNameDesc(jsonDatas);
+    }
+    if (isByPrice && isAscending) {
+        displayItemsByPriceAsc(jsonDatas);
+    }
+    if (isByPrice && isDescending) {
+        displayItemsByPriceDesc(jsonDatas);
+    }
 });
 
 
