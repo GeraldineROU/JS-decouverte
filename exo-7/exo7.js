@@ -38,8 +38,9 @@ jsonDatas.forEach((item) => {
 
 displayAllItemsInConsole();
 
-///////// Créer l'affichage de tous les article dans la page html //////////////////////////////////
+///////// A partir de l'étape  4//////////////////////////////////
 
+////////// récupération des éléments du dom ///////////
 
 let container = document.getElementById("container");
 let buttonForAllItem = document.getElementById("buttonForAllItems");
@@ -49,7 +50,9 @@ let byNameRadio = document.getElementById("byName");
 let byPriceRadio = document.getElementById("byPrice");
 let ascendingOrderRadio = document.getElementById("ascending");
 let descendingOrderRadio = document.getElementById("descending");
+let addItemButton = document.getElementById("addItemButton");
 
+///////////déclaration des fonctions /////////////////////////////////
 
 function createDomElement (dataText) {
     let element = document.createElement("p");
@@ -135,6 +138,18 @@ function displayItemsByType () {
     }
 }
 
+function addANewItemInCatalog () {
+    let newItem = {};
+    newItem.name = document.getElementById("name").value;
+    newItem.translatedType = document.getElementById("translatedType").value;
+    newItem.description = document.getElementById("description").value;
+    newItem.price = document.getElementById("price").value;
+    newItem.quantity = document.getElementById("quantity").value;
+    jsonDatas.push(newItem);
+}
+
+//////////Appel des fonctions ///////////////////////////////
+
 buttonForAllItem.addEventListener("click", function () {
     container.replaceChildren();
     let isByName = byNameRadio.checked;
@@ -157,6 +172,8 @@ buttonForAllItem.addEventListener("click", function () {
 
 
 button.addEventListener("click", displayItemsByType);
+
+addItemButton.addEventListener('click', addANewItemInCatalog);
 
 
 

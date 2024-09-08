@@ -7,6 +7,23 @@
 <body>
 <h1>Consultez notre catalogue</h1>
 
+<form>
+    <fieldset>
+        <legend>Ajouter un article au catalogue</legend>
+        <label for="name">Nom de l'article</label>
+        <input type="text" name="itemName" id="name"><br>
+        <label for="translatedType">Type</label>
+        <input type="text" name="itemType" id="translatedType"><br>
+        <label for="description">Description</label>
+        <input type="text" name="itemDescription" id="description"><br>
+        <label for="price">Prix</label>
+        <input type="text" name="itemPrice" id="price"><br>
+        <label for="quantity">Quantité</label>
+        <input type="text" name="itemQuantity" id="quantity"><br>
+        <input type="button" value="Ajouter" id="addItemButton">
+    </fieldset>
+</form>
+
 <form id="toutLeCatalogue">
     <label for="toutLeCatalogue">Afficher tout le catalogue</label>
     <input type="button" value="Clic !" id="buttonForAllItems">
